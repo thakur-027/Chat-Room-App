@@ -1,57 +1,177 @@
-# 💬 Chat Room App
+<div align="center">
 
-A fully functional, real-time group messaging application built for Android. This project demonstrates modern development practices using **Kotlin**, **Jetpack Compose**, and a **Firebase** backend for authentication and real-time data synchronization.
+# 💬 Real-Time Chat Room App
 
-## ✨ Key Features
+**Android · Kotlin · Jetpack Compose · Firebase**
 
-* **User Authentication:** Secure Sign Up and Login powered by Firebase Authentication (Email/Password).
-* **Room Management:** Users can dynamically create new chat rooms via an `AlertDialog` interface.
-* **Real-time Synchronization:** Utilizes **Firestore Snapshot Listeners** and Kotlin Flow for instant updates whenever a new message or room is added.
-* **Modern UI:**
-    * Clean list view of chat rooms using **Jetpack Compose Cards**.
-    * Dynamic chat bubbles that align left (received) or right (sent).
-    * Automatic time formatting for messages (e.g., "today 10:30").
-* **Robust Navigation:** Controlled navigation flow between all app destinations, including clearing the back stack upon successful login.
+[![Kotlin](https://img.shields.io/badge/Kotlin-1.9-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
+[![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-Latest-4285F4?style=for-the-badge&logo=jetpackcompose&logoColor=white)](https://developer.android.com/compose)
+[![Firebase](https://img.shields.io/badge/Firebase-Firestore-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![Android](https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://developer.android.com/)
+[![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 
-## 📐 Architecture & Technology
+</div>
 
-The project adheres strictly to the **Model-View-ViewModel (MVVM)** pattern, emphasizing a clean separation of concerns.
+---
 
-### Tech Stack
-| Component | Technology | Role |
-| :--- | :--- | :--- |
-| **Language** | Kotlin | Primary programming language. |
-| **UI Framework** | Jetpack Compose (Material 3) | Declarative UI toolkit. |
-| **Architecture** | MVVM | Structured code separation. |
-| **Backend** | Firebase Authentication | Handles user session management. |
-| **Database** | Cloud Firestore | Real-time, NoSQL storage for Rooms and Messages. |
-| **Concurrency** | Coroutines & Flow | Managing asynchronous operations (network calls, database listeners). |
-| **Navigation** | Jetpack Navigation Compose | Handling complex navigation flows and arguments (`roomId`). |
+## 📖 About
 
+A fully functional **real-time group messaging app** for Android built with **Kotlin** and **Jetpack Compose**. Users can sign up, create or join named chat rooms, and exchange messages that sync instantly across all devices via **Firebase Firestore**. The UI follows modern Material Design principles with a clean dark-themed look, per-message timestamps, and smooth animations.
 
+---
+
+## ✨ Features
+
+| Feature | Description |
+|---|---|
+| 🔐 **Secure Authentication** | Email/password sign-up and login via Firebase Auth |
+| 🏠 **Dynamic Chat Rooms** | Create, browse, and join named public rooms |
+| ⚡ **Real-Time Messaging** | Messages sync instantly using Firestore live listeners |
+| 🕐 **Time Formatting** | Per-message timestamps formatted in a human-readable style |
+| 🎨 **Modern Compose UI** | Fully declarative UI built with Jetpack Compose |
+| 📱 **Clean Architecture** | MVVM pattern with clear separation of concerns |
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Language | Kotlin |
+| UI Framework | Jetpack Compose |
+| Architecture | MVVM |
+| Authentication | Firebase Authentication |
+| Database | Firebase Firestore |
+| Build System | Gradle (Kotlin DSL) |
+| Min SDK | 24 (Android 7.0) |
+| Target SDK | 34 (Android 14) |
+
+---
+
+## 📂 Project Structure
+
+```
+Chat-Room-App/
+├── app/
+│   └── src/main/
+│       ├── java/com/ayush/chatroomapp/
+│       │   ├── data/
+│       │   │   ├── model/          # Message, Room, User data classes
+│       │   │   └── repository/     # Firestore & Auth repository implementations
+│       │   ├── ui/
+│       │   │   ├── screens/        # ChatScreen, RoomListScreen, LoginScreen, SignupScreen
+│       │   │   ├── theme/          # Color, Typography, Theme
+│       │   │   └── components/     # Reusable composables (MessageBubble, RoomCard, etc.)
+│       │   ├── viewmodel/          # ChatViewModel, AuthViewModel, RoomViewModel
+│       │   └── MainActivity.kt     # Entry point, NavHost setup
+│       └── res/
+│           └── values/             # strings.xml, themes.xml
+├── google-services.json            # Firebase config (not committed — add your own)
+├── build.gradle.kts
+└── README.md
+```
+
+---
 
 ## 🚀 Getting Started
 
-To run this project locally, you must first configure your Firebase project.
+### Prerequisites
 
-1.  **Clone the Repository:**
-    ```bash
-    git clone [https://github.com/thakur-027/Chat-Room-App.git](https://github.com/thakur-027/Chat-Room-App.git)
-    ```
-2.  **Firebase Setup (Required):**
-    * Go to the **Firebase Console** and create a new project.
-    * Enable **Authentication** (Email/Password).
-    * Enable **Cloud Firestore** and set up simple security rules (e.g., `allow read, write: if true;` for testing).
-    * Download your project's **`google-services.json`** file.
-    * Place the `google-services.json` file inside the **`app/`** directory.
-3.  **Run:**
-    Open the project in Android Studio, ensure Gradle syncs successfully, and run on an Android Emulator or physical device (API 26+ required for date formatting).
+- Android Studio **Hedgehog** or later
+- JDK 17+
+- A Firebase project (free Spark plan is sufficient)
 
-## 👨‍💻 Author
+### 1 · Clone the repository
 
-**Ayush Thakur**
-* **Currently Pursuing:** B.E. in Electronics and Communication Engineering (Sir MVIT, Bengaluru).
-* **GitHub:** [@thakur-027](https://github.com/thakur-027)
+```bash
+git clone https://github.com/thakur-027/Chat-Room-App.git
+cd Chat-Room-App
+```
+
+### 2 · Set up Firebase
+
+1. Go to [Firebase Console](https://console.firebase.google.com/) and create a new project
+2. Add an **Android app** with package name `com.ayush.chatroomapp`
+3. Download `google-services.json` and place it in the `/app` directory
+4. Enable **Authentication** → Sign-in method → **Email/Password**
+5. Enable **Firestore Database** → Start in **test mode** (for development)
+
+### 3 · Firestore Data Structure
+
+```
+rooms/
+  └── {roomId}/
+        ├── name: String
+        ├── createdAt: Timestamp
+        └── messages/
+              └── {messageId}/
+                    ├── senderId: String
+                    ├── senderName: String
+                    ├── content: String
+                    └── timestamp: Timestamp
+```
+
+### 4 · Build and Run
+
+Open the project in **Android Studio**, let Gradle sync, then hit ▶ **Run** on a device or emulator (API 24+).
 
 ---
-*This project was developed as a comprehensive demonstration of real-time Android Application Development.
+
+## 📸 Screenshots
+
+<div align="center">
+
+| Login | Sign Up | Chat Room |
+|:---:|:---:|:---:|
+| <img src="login.jpg" width="200"/> | <img src="signup.jpg" width="200"/> | <img src="messages.jpg" width="200"/> |
+| Email & password login with Firebase Auth | Full name + credentials sign-up flow | Real-time group messaging with per-user bubbles |
+
+</div>
+
+---
+
+## 🗺️ Roadmap
+
+- [ ] Push notifications via FCM
+- [ ] Image sharing in chat
+- [ ] Private / direct messaging
+- [ ] User presence indicators (online/offline)
+- [ ] Message read receipts
+
+---
+
+## 🤝 Contributing
+
+Contributions, bug reports, and feature requests are welcome.
+
+```bash
+# Fork → create a branch → commit your changes → open a PR
+git checkout -b feature/your-feature-name
+git commit -m "feat: describe your change"
+git push origin feature/your-feature-name
+```
+
+---
+
+## 👤 Author
+
+**Ayush Thakur**
+B.E. ECE · SMVIT Bengaluru · Class of 2027
+
+[![GitHub](https://img.shields.io/badge/GitHub-thakur--027-181717?style=flat-square&logo=github)](https://github.com/thakur-027)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-ayush--thakur015-0A66C2?style=flat-square&logo=linkedin)](https://www.linkedin.com/in/ayush-thakur015)
+[![Portfolio](https://img.shields.io/badge/Portfolio-thakur--027.github.io-FF6B35?style=flat-square&logo=githubpages)](https://thakur-027.github.io)
+
+---
+
+## 📄 License
+
+```
+MIT License — feel free to use, modify, and distribute with attribution.
+```
+
+<div align="center">
+
+Made with ❤️ using Kotlin & Jetpack Compose
+
+</div>
